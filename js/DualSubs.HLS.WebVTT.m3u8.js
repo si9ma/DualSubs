@@ -97,6 +97,10 @@ delete $request.headers["Range"]
 			if (item?.URI?.includes("vtt") && !item?.URI?.includes("empty")) {
 				const symbol = (item.URI.includes("?")) ? "&" : "?"
 				item.URI = item.URI + symbol + `dualsubs=${Type}`
+				let u = URL.parse(item.URI)
+				// 添加子域 mitmproxy
+				u.host = "mitmproxy." + u.host
+				item.URI = URL.stringify(u)
 			}
 			return item;
 		})
