@@ -349,6 +349,10 @@ async function setOptions(Platform = "", Json = {}, Languages1 = [], Languages2 
 			// 修改链接
 			newSub.OPTION.URI = (newSub?.OPTION?.URI?.includes("?")) ? `\"${newSub?.OPTION?.URI?.replace(/\"/g, "")}&dualsubs=${type}\"`
 			: `\"${newSub?.OPTION?.URI?.replace(/\"/g, "")}?dualsubs=${type}\"`
+			let u = new URL(newSub.OPTION.URI)
+			// 添加子域 mitmproxy
+			u.hostname = "mitmproxy" + u.hostname
+			newSub.OPTION.URI = u.href
 			// 自动选择
 			newSub.OPTION.AUTOSELECT = "YES"
 			// 兼容性修正
